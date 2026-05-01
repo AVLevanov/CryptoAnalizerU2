@@ -15,17 +15,18 @@ public class Cipher {
         for (int i = 0; i < ALPHABET.length; i++) {
             encoder.put(ALPHABET[i], ALPHABET[(i + shift) % ALPHABET.length]);
         }
-//        Для отладки. Выводим на консоль шифратор
-//        Set<Map.Entry<Character, Character>> encoderEntrySet = encoder.entrySet();
-//        for (Map.Entry<Character, Character> characterCharacterEntry : encoderEntrySet) {
-//            System.out.println(characterCharacterEntry);
-//        }
         return encoder;
     }
 
+    private Map<Character, Character> createDecoder(int shift) {
+        Map<Character, Character> decoder = new TreeMap<>();
+        for (int i = 0; i < ALPHABET.length; i++) {
+            decoder.put(ALPHABET[(i + shift) % ALPHABET.length], ALPHABET[i]);
+        }
+        return decoder;
+    }
+
     public String encrypt(String text, int shift) {
-//        Для отладки. Выводим на консоль длину строки
-//        System.out.println("length=" + text.length());
         Map<Character, Character> encoder = createEncoder(shift);
         char[] textCharArray = text.toCharArray();
         char[] encryptedTextCharArray = new char[text.length()];
@@ -40,7 +41,18 @@ public class Cipher {
         return String.valueOf(encryptedTextCharArray);
     }
 
-//    public String decrypt(String encryptedText, int shift) {
-//        return null;
-//    }
+    public String decrypt(String encryptedText, int shift) {
+        Map<Character, Character> decoder = createDecoder(shift);
+        char[] encryptedTextCharArray = encryptedText.toCharArray();
+        char[] decryptedTextCharArray = new char[encryptedText.length()];
+        for (int i = 0; i < encryptedTextCharArray.length; i++) {
+            char c = encryptedTextCharArray[i];
+            if (decoder.get(c) != null) {
+                decryptedTextCharArray[i] = decoder.get(c);
+            } else {
+                decryptedTextCharArray[i] = c;
+            }
+        }
+        return String.valueOf(decryptedTextCharArray);
+    }
 }
