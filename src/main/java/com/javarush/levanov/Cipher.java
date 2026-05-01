@@ -1,7 +1,6 @@
 package com.javarush.levanov;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 public class Cipher {
@@ -16,33 +15,32 @@ public class Cipher {
         for (int i = 0; i < ALPHABET.length; i++) {
             encoder.put(ALPHABET[i], ALPHABET[(i + shift) % ALPHABET.length]);
         }
-
 //        Для отладки. Выводим на консоль шифратор
 //        Set<Map.Entry<Character, Character>> encoderEntrySet = encoder.entrySet();
 //        for (Map.Entry<Character, Character> characterCharacterEntry : encoderEntrySet) {
 //            System.out.println(characterCharacterEntry);
 //        }
-
         return encoder;
     }
 
     public String encrypt(String text, int shift) {
+//        Для отладки. Выводим на консоль длину строки
+//        System.out.println("length=" + text.length());
         Map<Character, Character> encoder = createEncoder(shift);
-        String encryptedText = null;
-        System.out.println("length=" + text.length());
-        char[] textCharArray = new char[text.length()];
+        char[] textCharArray = text.toCharArray();
         char[] encryptedTextCharArray = new char[text.length()];
-        textCharArray = text.toCharArray();
         for (int i = 0; i < encryptedTextCharArray.length; i++) {
-            Character c = textCharArray[i];
-            char x = encoder.get(c);
-            encryptedTextCharArray[i] = x;
+            char c = textCharArray[i];
+            if (encoder.get(c) != null) {
+                encryptedTextCharArray[i] = encoder.get(c);
+            } else {
+                encryptedTextCharArray[i] = c;
+            }
         }
-        encryptedText = String.valueOf(encryptedTextCharArray);
-        return encryptedText;
+        return String.valueOf(encryptedTextCharArray);
     }
 
-    public String decrypt(String encryptedText, int shift) {
-        return null;
-    }
+//    public String decrypt(String encryptedText, int shift) {
+//        return null;
+//    }
 }
