@@ -1,15 +1,15 @@
 package com.javarush.levanov;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class FileManager {
     public String readFile(String filePath) {
-        String text = null;
-        try (FileReader reader = new FileReader(filePath);
-             BufferedReader br = new BufferedReader(reader)) {
-            text = br.readAllAsString();
+        Path path = Path.of(filePath);
+        String text;
+        try {
+            text = Files.readString(path);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -17,9 +17,9 @@ public class FileManager {
     }
 
     public void writeFile(String content, String filePath) {
-        try (FileOutputStream fos = new FileOutputStream(filePath);
-             BufferedOutputStream bos = new BufferedOutputStream(fos)) {
-            bos.write(content.getBytes());
+        Path path = Path.of(filePath);
+        try {
+            Files.writeString(path,content);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
