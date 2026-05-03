@@ -4,12 +4,6 @@ import java.util.Scanner;
 
 public class MainApp {
     static void main() {
-        char[] ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з',
-                'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ',
-                'ъ', 'ы', 'ь', 'э', 'ю', 'я', 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З',
-                'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ',
-                'Ы', 'Э', 'Ю', 'Я', '.', ',', '«', '»', '"', '\'', ':', '!', '?', ' '};
-
         final String TEXT_PATH = "C:\\!_Не работа\\test.txt";
         final String ENCRYPTED_FILE_PATH = "C:\\!_Не работа\\encrypted.txt";
         final String DECRYPTED_FILE_PATH = "C:\\!_Не работа\\decrypted.txt";
@@ -24,7 +18,7 @@ public class MainApp {
             key = console.nextLine();
         } while (!validator.isKeyCorrect(key));
 
-//        чтение файл
+//        чтение файлa
         FileManager fileManager = new FileManager();
         String text = fileManager.readFile(TEXT_PATH);
 
@@ -38,8 +32,9 @@ public class MainApp {
         String decryptedText = cipher.decrypt(encryptedTextFromFile, 3);
         fileManager.writeFile(decryptedText, DECRYPTED_FILE_PATH);
 
+//        расшифровка BruteForce
         BruteForce bruteForce = new BruteForce();
-        String bruteForceDecrypted = bruteForce.decryptByBruteForce(encryptedText, ALPHABET);
+        String bruteForceDecrypted = bruteForce.decryptByBruteForce(encryptedText, Cipher.ALPHABET_LENGTH);
         fileManager.writeFile(bruteForceDecrypted, BRUTE_FORCE_DECRYPTED_FILE_PATH);
     }
 }

@@ -9,6 +9,7 @@ public class Cipher {
             'ъ', 'ы', 'ь', 'э', 'ю', 'я', 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З',
             'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ',
             'Ы', 'Э', 'Ю', 'Я', '.', ',', '«', '»', '"', '\'', ':', '!', '?', ' '};
+    public static final int ALPHABET_LENGTH = ALPHABET.length;
 
     private Map<Character, Character> createEncoder(int shift) {
         Map<Character, Character> encoder = new TreeMap<>();
