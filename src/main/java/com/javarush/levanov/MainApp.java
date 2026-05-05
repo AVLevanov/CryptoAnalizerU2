@@ -1,10 +1,11 @@
 package com.javarush.levanov;
 
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class MainApp {
     static void main() {
-        final String TEXT_PATH = "C:\\!_Не работа\\test.txt";
+        final String TEXT_PATH = "C:\\!_Не работа\\text.txt";
         final String ENCRYPTED_FILE_PATH = "C:\\!_Не работа\\encrypted.txt";
         final String DECRYPTED_FILE_PATH = "C:\\!_Не работа\\decrypted.txt";
         final String BRUTE_FORCE_DECRYPTED_FILE_PATH = "C:\\!_Не работа\\bruteForceDecrypted.txt";
@@ -33,8 +34,10 @@ public class MainApp {
         fileManager.writeFile(decryptedText, DECRYPTED_FILE_PATH);
 
 //        расшифровка BruteForce
+//        System.out.println(LocalTime.now());
         BruteForce bruteForce = new BruteForce();
-        String bruteForceDecrypted = bruteForce.decryptByBruteForce(encryptedText, Cipher.ALPHABET_LENGTH);
+        String bruteForceDecrypted = bruteForce.decryptByBruteForce(encryptedText, Cipher.ALPHABET_LENGTH, cipher);
         fileManager.writeFile(bruteForceDecrypted, BRUTE_FORCE_DECRYPTED_FILE_PATH);
+//        System.out.println(LocalTime.now());
     }
 }

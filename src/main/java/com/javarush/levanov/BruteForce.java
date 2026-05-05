@@ -8,8 +8,7 @@ public class BruteForce {
     private static final String[] NEXT_CHARACTERS = {" ", ".", ",", ";", ":", "\"", "!", "?"};
 
     // возвращаем расшифрованный текст по значению найденного ключа
-    public String decryptByBruteForce(String encryptedText, int alphabetLength) {
-        Cipher cipher = new Cipher();
+    public String decryptByBruteForce(String encryptedText, int alphabetLength, Cipher cipher) {
         int foundedKey = findKey(encryptedText, alphabetLength, cipher);
         return cipher.decrypt(encryptedText, foundedKey);
     }
@@ -22,7 +21,7 @@ public class BruteForce {
             int counter = keyWordsCounter(decryptedText);
             keysAndCounters.put(key, counter);
         }
-        System.out.println(keysAndCounters);
+//        System.out.println(keysAndCounters);
 
         Iterator<Map.Entry<Integer, Integer>> iterator = keysAndCounters.entrySet().iterator();
         int maxCounterValue = 0;
@@ -34,7 +33,7 @@ public class BruteForce {
                 key = nextEntry.getKey();
             }
         }
-        System.out.println("key=" + key);
+//        System.out.println("key=" + key);
         return key;
     }
 
@@ -49,14 +48,15 @@ public class BruteForce {
 
     // перебираем варианты обрамления слова пробелами и знаками препинания и возвращаем число повторений слова в тексте
     private int wordCounter(String text, String word) {
+        String lowerCaseText = text.toLowerCase();
         int wordCounter = 0;
         for (String precedingCharacter : PRECEDING_CHARACTERS) {
             for (String nextCharacter : NEXT_CHARACTERS) {
                 int pointer = 0;
                 String wordCase = precedingCharacter + word + nextCharacter;
-                while (text.toLowerCase().indexOf(wordCase, pointer) != -1) {
+                while (lowerCaseText.indexOf(wordCase, pointer) != -1) {
                     wordCounter++;
-                    pointer = text.toLowerCase().indexOf(wordCase, pointer) + wordCase.length();
+                    pointer = lowerCaseText.indexOf(wordCase, pointer) + wordCase.length();
                 }
             }
         }
