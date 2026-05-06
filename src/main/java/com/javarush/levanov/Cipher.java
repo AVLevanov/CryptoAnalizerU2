@@ -1,7 +1,7 @@
 package com.javarush.levanov;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class Cipher {
     private static final char[] ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з',
@@ -11,24 +11,24 @@ public class Cipher {
             'Ы', 'Э', 'Ю', 'Я', '.', ',', '«', '»', '"', '\'', ':', '!', '?', ' '};
     public static final int ALPHABET_LENGTH = ALPHABET.length;
 
-    private Map<Character, Character> createEncoder(int shift) {
-        Map<Character, Character> encoder = new TreeMap<>();
+    private Map<Character, Character> createEncoder(int key) {
+        Map<Character, Character> encoder = new HashMap<>();
         for (int i = 0; i < ALPHABET.length; i++) {
-            encoder.put(ALPHABET[i], ALPHABET[(i + shift) % ALPHABET.length]);
+            encoder.put(ALPHABET[i], ALPHABET[(i + key) % ALPHABET.length]);
         }
         return encoder;
     }
 
-    private Map<Character, Character> createDecoder(int shift) {
-        Map<Character, Character> decoder = new TreeMap<>();
+    private Map<Character, Character> createDecoder(int key) {
+        Map<Character, Character> decoder = new HashMap<>();
         for (int i = 0; i < ALPHABET.length; i++) {
-            decoder.put(ALPHABET[(i + shift) % ALPHABET.length], ALPHABET[i]);
+            decoder.put(ALPHABET[(i + key) % ALPHABET.length], ALPHABET[i]);
         }
         return decoder;
     }
 
-    public String encrypt(String text, int shift) {
-        Map<Character, Character> encoder = createEncoder(shift);
+    public String encrypt(String text, int key) {
+        Map<Character, Character> encoder = createEncoder(key);
         char[] textCharArray = text.toCharArray();
         char[] encryptedTextCharArray = new char[text.length()];
         for (int i = 0; i < encryptedTextCharArray.length; i++) {
@@ -42,8 +42,8 @@ public class Cipher {
         return String.valueOf(encryptedTextCharArray);
     }
 
-    public String decrypt(String encryptedText, int shift) {
-        Map<Character, Character> decoder = createDecoder(shift);
+    public String decrypt(String encryptedText, int key) {
+        Map<Character, Character> decoder = createDecoder(key);
         char[] encryptedTextCharArray = encryptedText.toCharArray();
         char[] decryptedTextCharArray = new char[encryptedText.length()];
         for (int i = 0; i < encryptedTextCharArray.length; i++) {

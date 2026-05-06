@@ -1,11 +1,10 @@
 package com.javarush.levanov;
 
-import java.time.LocalTime;
 import java.util.Scanner;
 
 public class MainApp {
     static void main() {
-        final String TEXT_PATH = "C:\\!_Не работа\\text.txt";
+        final String TEXT_PATH = "C:\\!_Не работа\\test.txt";
         final String ENCRYPTED_FILE_PATH = "C:\\!_Не работа\\encrypted.txt";
         final String DECRYPTED_FILE_PATH = "C:\\!_Не работа\\decrypted.txt";
         final String BRUTE_FORCE_DECRYPTED_FILE_PATH = "C:\\!_Не работа\\bruteForceDecrypted.txt";
@@ -14,10 +13,10 @@ public class MainApp {
         Scanner console = new Scanner(System.in);
         Validator validator = new Validator();
         System.out.print("Введите ключ шифрования: ");
-        String key;
+        String inputKey;
         do {
-            key = console.nextLine();
-        } while (!validator.isKeyCorrect(key));
+            inputKey = console.nextLine();
+        } while (!validator.isKeyCorrect(inputKey));
 
 //        чтение файлa
         FileManager fileManager = new FileManager();
@@ -25,7 +24,7 @@ public class MainApp {
 
 //        шифрование
         Cipher cipher = new Cipher();
-        String encryptedText = cipher.encrypt(text, validator.getShift());
+        String encryptedText = cipher.encrypt(text, validator.getKey()); // отрефакторить? Валидатор не должен хранить ключ
         fileManager.writeFile(encryptedText, ENCRYPTED_FILE_PATH);
 
 //        расшифровка

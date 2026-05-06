@@ -1,25 +1,25 @@
 package com.javarush.levanov;
 
 public class Validator {
-    private static int shift;
+    int key;
 
+//    проверяем корректность ввода ключа
     public boolean isKeyCorrect(String key) {
         boolean isKeyCorrect = false;
         try {
-            shift = Integer.parseInt(key);
-            if (shift >= 0) {
+            this.key = Integer.parseInt(key);
+            if (this.key >= 0) {
                 isKeyCorrect = true;
             } else {
-                System.out.println("Ключ должен быть целым числом от 0 до " + Integer.MAX_VALUE);
+                System.out.print("Ключ должен быть целым числом от 0 до " + Integer.MAX_VALUE + ": ");
             }
-            return isKeyCorrect;
         } catch (NumberFormatException e) {
-            System.out.println("Ключ должен быть целым числом от 0 до " + Integer.MAX_VALUE);
-            return isKeyCorrect;
+            System.out.print("Ключ должен быть целым числом от 0 до " + Integer.MAX_VALUE + ": ");
         }
+        return isKeyCorrect;
     }
 
-    public int getShift() {
-        return shift;
+    public int getKey() {
+        return key;
     }
 }
