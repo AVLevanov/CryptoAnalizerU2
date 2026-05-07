@@ -1,5 +1,7 @@
 package com.javarush.levanov;
 
+import com.javarush.levanov.constant.Constants;
+
 public class Validator {
     int key;
 
@@ -11,10 +13,10 @@ public class Validator {
             if (this.key >= 0) {
                 isKeyCorrect = true;
             } else {
-                System.out.print("Ключ должен быть целым числом от 0 до " + Integer.MAX_VALUE + ": ");
+                System.out.print(Constants.ERR_INPUT_KEY);
             }
         } catch (NumberFormatException e) {
-            System.out.print("Ключ должен быть целым числом от 0 до " + Integer.MAX_VALUE + ": ");
+            System.out.print(Constants.ERR_INPUT_KEY);
         }
         return isKeyCorrect;
     }
