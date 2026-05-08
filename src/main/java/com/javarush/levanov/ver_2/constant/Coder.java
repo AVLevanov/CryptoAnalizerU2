@@ -1,9 +1,9 @@
-package com.javarush.levanov.constant;
+package com.javarush.levanov.ver_2.constant;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.javarush.levanov.constant.Constants.ALPHABET;
+import static com.javarush.levanov.ver_2.constant.Constants.ALPHABET;
 
 public class Coder {
     public Map<Character, Character> cipher;

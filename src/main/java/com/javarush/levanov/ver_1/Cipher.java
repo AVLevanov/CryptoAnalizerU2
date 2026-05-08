@@ -1,4 +1,4 @@
-package com.javarush.levanov;
+package com.javarush.levanov.ver_1;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,6 @@
-package com.javarush.levanov;
+package com.javarush.levanov.ver_1;
 
-import com.javarush.levanov.actions.Decrypt;
-import com.javarush.levanov.actions.Encrypt;
+import java.util.Scanner;
 
 public class MainApp {
     static void main() {
@@ -9,11 +8,9 @@ public class MainApp {
         final String TEXT_PATH = "C:\\!_Не работа\\test.txt";
         final String ENCRYPTED_FILE_PATH = "C:\\!_Не работа\\encrypted.txt";
         final String DECRYPTED_FILE_PATH = "C:\\!_Не работа\\decrypted.txt";
-//        final String BRUTE_FORCE_DECRYPTED_FILE_PATH = "C:\\!_Не работа\\bruteForceDecrypted.txt";
+        final String BRUTE_FORCE_DECRYPTED_FILE_PATH = "C:\\!_Не работа\\bruteForceDecrypted.txt";
 
-        Encrypt encrypt = new Encrypt(TEXT_PATH, ENCRYPTED_FILE_PATH, 1000);
-        Decrypt decrypt = new Decrypt(ENCRYPTED_FILE_PATH, DECRYPTED_FILE_PATH, 1000);
-/*
+
 //        ввод ключа с консоли
         Scanner console = new Scanner(System.in);
         Validator validator = new Validator();
@@ -39,12 +36,11 @@ public class MainApp {
 
 //        расшифровка BruteForce
 //        System.out.println(LocalTime.now());
-        BruteForce bruteForce = new BruteForce();
-        String bruteForceDecrypted = bruteForce.decryptByBruteForce(encryptedText, Cipher.ALPHABET_LENGTH, cipher);
+        BrForce brForce = new BrForce();
+        String bruteForceDecrypted = brForce.decryptByBruteForce(encryptedText, Cipher.ALPHABET_LENGTH, cipher);
         fileManager.writeFile(bruteForceDecrypted, BRUTE_FORCE_DECRYPTED_FILE_PATH);
 //        System.out.println(LocalTime.now());
 
 
- */
     }
 }

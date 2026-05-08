@@ -1,6 +1,6 @@
-package com.javarush.levanov.actions;
+package com.javarush.levanov.ver_2.actions;
 
-import com.javarush.levanov.constant.Coder;
+import com.javarush.levanov.ver_2.constant.Coder;
 
 import java.io.*;
 import java.nio.file.Files;

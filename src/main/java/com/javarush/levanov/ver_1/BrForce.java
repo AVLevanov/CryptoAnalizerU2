@@ -1,8 +1,8 @@
-package com.javarush.levanov;
+package com.javarush.levanov.ver_1;
 
 import java.util.*;
 
-public class BruteForce {
+public class BrForce {
     private static final String[] KEY_WORDS = {"и", "в", "на", "не", "я", "он", "она", "человк", "время", "год", "был"};
     private static final String[] PRECEDING_CHARACTERS = {" ", "\n"};
     private static final String[] NEXT_CHARACTERS = {" ", ".", ",", ";", ":", "\"", "!", "?"};
