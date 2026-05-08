@@ -28,7 +28,7 @@ public class BruteForce extends AbstractAction {
         for (int key = 1; key <= ALPHABET.length; key++) {
             this.code(inPath, BRUTE_FORCE_WORKING_PATH, -key);
             int counter = keyWordsCounter(BRUTE_FORCE_WORKING_PATH);
-            keysAndCounters.put(key, counter);
+            keysAndCounters.put(-key, counter);
         }
         System.out.println(keysAndCounters);
 
