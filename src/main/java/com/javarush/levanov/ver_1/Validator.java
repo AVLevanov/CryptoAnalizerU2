@@ -1,7 +1,5 @@
 package com.javarush.levanov.ver_1;
 
-import com.javarush.levanov.ver_2.constant.Constants;
-
 public class Validator {
     int key;
 

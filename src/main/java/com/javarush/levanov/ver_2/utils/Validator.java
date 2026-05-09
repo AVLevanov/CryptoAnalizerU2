@@ -28,6 +28,8 @@ public class Validator {
             }
             case 3 -> {
                 // проверить, что входной файл существует
+                validationResult.status = Status.SUCCESS;
+                validationResult.request = new Request(mode, parameters[0], parameters[1]);
             }
         }
         return validationResult;
