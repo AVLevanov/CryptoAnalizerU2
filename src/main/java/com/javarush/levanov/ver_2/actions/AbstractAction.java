@@ -8,16 +8,16 @@ import java.nio.file.Path;
 
 public abstract class AbstractAction {
 
-    public void code(String inPath, String outPath, int key) {
-        Coder coder = new Coder(key);
+    public static void code(String inPath, String outPath, int key) {
+        Coder.setKey(key);
         try (BufferedReader bufferedReader = Files.newBufferedReader(Path.of(inPath));
              BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of(outPath))
         ) {
             while (bufferedReader.ready()) {
                 char symbol = (char) bufferedReader.read();
                 char encryptedSymbol;
-                if (coder.cipher.get(symbol) != null) {
-                    encryptedSymbol = coder.cipher.get(symbol);
+                if (Coder.getCipher().get(symbol) != null) {
+                    encryptedSymbol = Coder.getCipher().get(symbol);
                 } else {
                     encryptedSymbol = symbol;
                 }
