@@ -2,11 +2,14 @@ package com.javarush.levanov.ver_2.utils.validator;
 
 import com.javarush.levanov.ver_2.controller.Request;
 import com.javarush.levanov.ver_2.controller.result.Status;
+import com.javarush.levanov.ver_2.controller.result.ValidationResult;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+
+// Проверяет данные введенные пользователем
 public class Validator {
 
     // Валидируем параметры запроса. Возвращаем результат валидации: статус и (ошибки или сконструированный запрос)

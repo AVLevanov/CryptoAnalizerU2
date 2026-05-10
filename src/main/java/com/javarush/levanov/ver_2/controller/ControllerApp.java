@@ -6,18 +6,18 @@ import com.javarush.levanov.ver_2.actions.Encrypt;
 import com.javarush.levanov.ver_2.console.ConsoleApp;
 import com.javarush.levanov.ver_2.controller.result.*;
 import com.javarush.levanov.ver_2.utils.Logger;
-import com.javarush.levanov.ver_2.utils.validator.ValidationResult;
+import com.javarush.levanov.ver_2.controller.result.ValidationResult;
 import com.javarush.levanov.ver_2.utils.validator.Validator;
 
 public class ControllerApp {
-    ConsoleApp console;
-    Logger logger;
+    public ConsoleApp console;
+    public Logger logger;
 
     // Создаем console и logger
     public void Start() {
         console = new ConsoleApp();
-        console.Start(this);
         logger = new Logger();
+        console.Start(this);
     }
 
     // обработка поступившего запроса
@@ -27,9 +27,10 @@ public class ControllerApp {
         if (validationResult.status == Status.SUCCESS) {
             ActionResult actionResult = executeRequest(validationResult.request);
             console.showResult(actionResult);
-
+            logger.logEvent(actionResult);
         } else {
             console.showResult(validationResult);
+            logger.logEvent(validationResult);
         }
     }
 
