@@ -5,7 +5,8 @@ import com.javarush.levanov.ver_2.actions.Decrypt;
 import com.javarush.levanov.ver_2.actions.Encrypt;
 import com.javarush.levanov.ver_2.console.ConsoleApp;
 import com.javarush.levanov.ver_2.controller.result.*;
-import com.javarush.levanov.ver_2.utils.Validator;
+import com.javarush.levanov.ver_2.utils.validator.ValidationResult;
+import com.javarush.levanov.ver_2.utils.validator.Validator;
 
 public class ControllerApp {
 
