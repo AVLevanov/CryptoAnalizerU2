@@ -26,7 +26,7 @@ public class ConsoleApp {
                     System.out.println(Messages.QUESTIONS[mode - 1][i]);
                     parameters[i] = scanner.nextLine();
                 }
-                controller.processRequest(mode, parameters, this);
+                controller.processRequest(mode, parameters);
             }
         }
     }

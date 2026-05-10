@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import static com.javarush.levanov.ver_2.constant.Constants.*;
+import static com.javarush.levanov.ver_2.utils.Environment.*;
 
 public class BruteForce extends AbstractAction {
 

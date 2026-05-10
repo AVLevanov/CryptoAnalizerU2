@@ -5,18 +5,29 @@ import com.javarush.levanov.ver_2.actions.Decrypt;
 import com.javarush.levanov.ver_2.actions.Encrypt;
 import com.javarush.levanov.ver_2.console.ConsoleApp;
 import com.javarush.levanov.ver_2.controller.result.*;
+import com.javarush.levanov.ver_2.utils.Logger;
 import com.javarush.levanov.ver_2.utils.validator.ValidationResult;
 import com.javarush.levanov.ver_2.utils.validator.Validator;
 
 public class ControllerApp {
+    ConsoleApp console;
+    Logger logger;
+
+    // Создаем console и logger
+    public void Start() {
+        console = new ConsoleApp();
+        console.Start(this);
+        logger = new Logger();
+    }
 
     // обработка поступившего запроса
-    public void processRequest(int mode, String[] parameters, ConsoleApp console) {
+    public void processRequest(int mode, String[] parameters) {
         Validator validator = new Validator();
         ValidationResult validationResult = validator.validateParameters(mode, parameters);
         if (validationResult.status == Status.SUCCESS) {
             ActionResult actionResult = executeRequest(validationResult.request);
             console.showResult(actionResult);
+
         } else {
             console.showResult(validationResult);
         }
