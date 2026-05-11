@@ -14,7 +14,7 @@ public class ConsoleApp {
         Scanner scanner = new Scanner(System.in);
         String[] parameters = new String[3];
         int mode;
-        Action action = Action.EXIT;
+        Action action = null;
         controller.processRequest(Action.START, parameters);
         while (true) {
             System.out.println(Messages.INITIAL_MESSAGE);

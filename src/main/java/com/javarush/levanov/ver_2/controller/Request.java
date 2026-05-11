@@ -20,4 +20,6 @@ public class Request {
         this.inPath = inPath;
         this.outPath = outPath;
     }
+
+
 }

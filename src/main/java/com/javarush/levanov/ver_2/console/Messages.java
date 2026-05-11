@@ -16,9 +16,9 @@ public interface Messages {
             For exit press any other key
             ---------------""";
 
-    String SUCCESS_RESULT = "\n---------------\nAction: %s\nStatus: " + GREEN + "%s\n" + RESET + "Message: %s\n---------------";
+    String SUCCESS_RESULT = "---------------\nAction: %s\nStatus: " + GREEN + "%s\n" + RESET + "Message: %s";
 
-    String FAILED_RESULT = "\n---------------\nAction: %s\nStatus: " + RED + "%s\n" + RESET + "Message: %s\n---------------";
+    String FAILED_RESULT = "---------------\nAction: %s\nStatus: " + RED + "%s\n" + RESET + "Message: %s";
 
     String[][] QUESTIONS = {
             {"Enter text file path: ", "Enter encrypted file path: ", "Enter key: "},
