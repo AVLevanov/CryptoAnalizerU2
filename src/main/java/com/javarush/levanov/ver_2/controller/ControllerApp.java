@@ -10,8 +10,8 @@ import com.javarush.levanov.ver_2.controller.result.ValidationResult;
 import com.javarush.levanov.ver_2.utils.validator.Validator;
 
 public class ControllerApp {
-    public ConsoleApp console;
-    public Logger logger;
+    private ConsoleApp console;
+    private Logger logger;
 
     // Создаем console и logger
     public void Start() {
@@ -34,7 +34,7 @@ public class ControllerApp {
         }
     }
 
-    //отправляем запрос на исполние
+    //отправляем запрос на исполнение
     private ActionResult executeRequest(Request request) {
         ActionResult actionResult = new ActionResult();
         switch (request.action) {
@@ -43,7 +43,7 @@ public class ControllerApp {
             case ENCRYPT -> {
                 actionResult.action = Action.ENCRYPT;
                 Encrypt.execute(request.inPath, request.outPath, request.key);
-                actionResult.message = "File " + request.inPath + " has been successfully encrypted to file " + request.outPath + " with key=" + request.key;
+                actionResult.message = "\\u001B[31m" + "File " + request.inPath + " has been successfully encrypted to file " + request.outPath + " with key=" + request.key;
             }
             case DECRYPT -> {
                 actionResult.action = Action.DECRYPT;

@@ -1,21 +1,24 @@
 package com.javarush.levanov.ver_2.console;
 
 public interface Messages {
-    String INITIAL_MESSAGE = """
-        ---------------
-        CHOOSE ACTION:
-        1. Encrypt
-        2. Decrypt
-        3. Brute Force
-        For exit press any other key
-        ---------------""";
 
-    String SHOW_RESULT = """
-        ---------------
-        Action: %s
-        Status: %s
-        Message: %s
-        ---------------""";
+    String RESET = "\u001B[0m";
+    String RED = "\u001B[31m";
+    String GREEN = "\u001B[32m";
+
+    String INITIAL_MESSAGE = """
+            
+            ---------------
+            CHOOSE ACTION:
+            1. Encrypt
+            2. Decrypt
+            3. Brute Force
+            For exit press any other key
+            ---------------""";
+
+    String SUCCESS_RESULT = "\n---------------\nAction: %s\nStatus: " + GREEN + "%s\n" + RESET + "Message: %s\n---------------";
+
+    String FAILED_RESULT = "\n---------------\nAction: %s\nStatus: " + RED + "%s\n" + RESET + "Message: %s\n---------------";
 
     String[][] QUESTIONS = {
             {"Enter text file path: ", "Enter encrypted file path: ", "Enter key: "},

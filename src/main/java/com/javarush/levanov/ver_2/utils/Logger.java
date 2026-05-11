@@ -35,8 +35,14 @@ public class Logger {
 
     // Строим строку для журнала
     private String constructLogLine(com.javarush.levanov.ver_2.controller.result.Result result) {
+        String logLine;
         LocalDateTime localDateTime = LocalDateTime.now();
         String formattedDateTime = formatter.format(localDateTime);
-        return String.format("%s   action: %s   status: %s   message: %s\n", formattedDateTime, result.action, result.status, result.message);
+        if (result.message != null) {
+            logLine = String.format("%s   action: %s   status: %s   message: %s\n", formattedDateTime, result.action, result.status, result.message);
+        } else {
+            logLine = String.format("%s   action: %s\n", formattedDateTime, result.action);
+        }
+        return logLine;
     }
 }

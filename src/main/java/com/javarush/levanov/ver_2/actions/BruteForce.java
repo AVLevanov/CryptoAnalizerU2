@@ -27,7 +27,6 @@ public class BruteForce extends AbstractAction {
             int counter = keyWordsCounter(BRUTE_FORCE_WORKING_PATH);
             keysAndCounters.put(-key, counter);
         }
-//        System.out.println(keysAndCounters);
 
         Iterator<Map.Entry<Integer, Integer>> iterator = keysAndCounters.entrySet().iterator();
         int maxCounterValue = 0;
@@ -39,7 +38,6 @@ public class BruteForce extends AbstractAction {
                 bestKey = nextEntry.getKey();
             }
         }
-//        System.out.println("bestKey=" + bestKey);
         return bestKey;
     }
 

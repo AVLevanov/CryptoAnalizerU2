@@ -3,6 +3,7 @@ package com.javarush.levanov.ver_2.console;
 import com.javarush.levanov.ver_2.controller.Action;
 import com.javarush.levanov.ver_2.controller.ControllerApp;
 import com.javarush.levanov.ver_2.controller.result.Result;
+import com.javarush.levanov.ver_2.controller.result.Status;
 
 import java.util.Scanner;
 
@@ -43,7 +44,11 @@ public class ConsoleApp {
 
     public void showResult(Result result) {
         if (result.message != null) {
-            System.out.printf(Messages.SHOW_RESULT, result.action, result.status, result.message);
+            if(result.status== Status.SUCCESS){
+                System.out.printf(Messages.SUCCESS_RESULT, result.action, result.status, result.message);
+            }else {
+                System.out.printf(Messages.FAILED_RESULT, result.action, result.status, result.message);
+            }
         }
     }
 }
