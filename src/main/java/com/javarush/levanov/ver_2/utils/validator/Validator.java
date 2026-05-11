@@ -1,5 +1,6 @@
 package com.javarush.levanov.ver_2.utils.validator;
 
+import com.javarush.levanov.ver_2.controller.Action;
 import com.javarush.levanov.ver_2.controller.Request;
 import com.javarush.levanov.ver_2.controller.result.Status;
 import com.javarush.levanov.ver_2.controller.result.ValidationResult;
@@ -13,18 +14,20 @@ import java.nio.file.Path;
 public class Validator {
 
     // Валидируем параметры запроса. Возвращаем результат валидации: статус и (ошибки или сконструированный запрос)
-    public ValidationResult validateParameters(int mode, String[] parameters) {
+    public ValidationResult validateParameters(Action action, String[] parameters) {
         ValidationResult validationResult = new ValidationResult();
+        validationResult.action = action;
         validationResult.status = Status.SUCCESS;
-        switch (mode) {
-            case 1, 2 -> {
+        switch (action) {
+            case START, EXIT -> addRequest(validationResult, action, parameters);
+            case ENCRYPT, DECRYPT -> {
                 validateFile(parameters, validationResult);
                 int key = validateKey(parameters, validationResult);
-                addRequest(validationResult, mode, parameters, key);
+                addRequest(validationResult, action, parameters, key);
             }
-            case 3 -> {
+            case BRUTE_FORCE -> {
                 validateFile(parameters, validationResult);
-                addRequest(validationResult, mode, parameters);
+                addRequest(validationResult, action, parameters);
             }
         }
         return validationResult;
@@ -56,16 +59,16 @@ public class Validator {
     }
 
     // конструируем запрос, там где ключ не нужен
-    private static void addRequest(ValidationResult validationResult, int mode, String[] parameters) {
+    private static void addRequest(ValidationResult validationResult, Action action, String[] parameters) {
         if (validationResult.status == Status.SUCCESS) {
-            validationResult.request = new Request(mode, parameters[0], parameters[1]);
+            validationResult.request = new Request(action, parameters[0], parameters[1]);
         }
     }
 
     // конструируем запрос, там где ключ нужен
-    private static void addRequest(ValidationResult validationResult, int mode, String[] parameters, int key) {
+    private static void addRequest(ValidationResult validationResult, Action action, String[] parameters, int key) {
         if (validationResult.status == Status.SUCCESS) {
-            validationResult.request = new Request(mode, parameters[0], parameters[1], key);
+            validationResult.request = new Request(action, parameters[0], parameters[1], key);
         }
     }
 }

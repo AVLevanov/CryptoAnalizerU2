@@ -21,9 +21,9 @@ public class ControllerApp {
     }
 
     // обработка поступившего запроса
-    public void processRequest(int mode, String[] parameters) {
+    public void processRequest(Action action, String[] parameters) {
         Validator validator = new Validator();
-        ValidationResult validationResult = validator.validateParameters(mode, parameters);
+        ValidationResult validationResult = validator.validateParameters(action, parameters);
         if (validationResult.status == Status.SUCCESS) {
             ActionResult actionResult = executeRequest(validationResult.request);
             console.showResult(actionResult);
@@ -37,16 +37,21 @@ public class ControllerApp {
     //отправляем запрос на исполние
     private ActionResult executeRequest(Request request) {
         ActionResult actionResult = new ActionResult();
-        switch (request.mode) {
-            case 1 -> {
+        switch (request.action) {
+            case START -> actionResult.action = Action.START;
+            case EXIT -> actionResult.action = Action.EXIT;
+            case ENCRYPT -> {
+                actionResult.action = Action.ENCRYPT;
                 Encrypt.execute(request.inPath, request.outPath, request.key);
                 actionResult.message = "File " + request.inPath + " has been successfully encrypted to file " + request.outPath + " with key=" + request.key;
             }
-            case 2 -> {
+            case DECRYPT -> {
+                actionResult.action = Action.DECRYPT;
                 Decrypt.execute(request.inPath, request.outPath, request.key);
                 actionResult.message = "File " + request.inPath + " has been successfully decrypted to file " + request.outPath + " with key=" + request.key;
             }
-            case 3 -> {
+            case BRUTE_FORCE -> {
+                actionResult.action = Action.BRUTE_FORCE;
                 BruteForce.execute(request.inPath, request.outPath);
                 actionResult.message = "File " + request.inPath + " has been successfully decrypted fy brute force method to file " + request.outPath;
             }
