@@ -11,11 +11,13 @@ public class ConsoleApp {
 
     //Запускаем консоль и получаем данные от пользователя
     public void Start(ControllerApp controller) {
+        // инициализируем все необходимые переменные
         Scanner scanner = new Scanner(System.in);
         String[] parameters = new String[3];
         int mode;
         Action action = null;
         controller.processRequest(Action.START, parameters);
+        // запускаем цикл общения с пользователем
         while (true) {
             System.out.println(Messages.INITIAL_MESSAGE);
             try {
@@ -24,7 +26,7 @@ public class ConsoleApp {
                 controller.processRequest(Action.EXIT, parameters);
                 break;
             }
-            if (mode != 1 && mode != 2 && mode != 3) {
+            if (mode < 1 || mode > 3) {
                 controller.processRequest(Action.EXIT, parameters);
                 break;
             } else {

@@ -14,7 +14,7 @@ public class ControllerApp {
     private Logger logger;
     private Validator validator;
 
-    // Создаем console и logger
+    // Создаем console, logger и validator
     public void Start() {
         console = new ConsoleApp();
         logger = new Logger();
@@ -33,7 +33,7 @@ public class ControllerApp {
             }
             case Action.ENCRYPT, Action.DECRYPT, Action.BRUTE_FORCE -> {
                 ValidationResult validationResult = validator.validateParameters(action, parameters);
-                if (validationResult.status != Status.SUCCESS) {
+                if (validationResult.status == Status.FAIL) {
                     console.showResult(validationResult);
                     logger.logEvent(validationResult);
                 } else {
@@ -55,18 +55,18 @@ public class ControllerApp {
         Result result = new Result();
         switch (request.action) {
             case ENCRYPT -> {
-                result.action = Action.ENCRYPT;
                 Encrypt.execute(request.inPath, request.outPath, request.key);
+                result.action = Action.ENCRYPT;
                 result.message = "File " + request.inPath + " has been successfully encrypted to file " + request.outPath + " with key=" + request.key;
             }
             case DECRYPT -> {
-                result.action = Action.DECRYPT;
                 Decrypt.execute(request.inPath, request.outPath, request.key);
+                result.action = Action.DECRYPT;
                 result.message = "File " + request.inPath + " has been successfully decrypted to file " + request.outPath + " with key=" + request.key;
             }
             case BRUTE_FORCE -> {
-                result.action = Action.BRUTE_FORCE;
                 BruteForce.execute(request.inPath, request.outPath);
+                result.action = Action.BRUTE_FORCE;
                 result.message = "File " + request.inPath + " has been successfully decrypted fy brute force method to file " + request.outPath;
             }
         }

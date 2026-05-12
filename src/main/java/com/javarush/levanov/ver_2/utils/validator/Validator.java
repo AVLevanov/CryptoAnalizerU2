@@ -16,14 +16,14 @@ public class Validator {
         validationResult.action = action;
         validationResult.status = Status.SUCCESS;
         validateFile(parameters, validationResult);
-        if (action != Action.BRUTE_FORCE) {
+        if (action == Action.ENCRYPT || action == Action.DECRYPT) {
             validationResult.key = validateKey(parameters, validationResult);
         }
         return validationResult;
     }
 
     // проверяем, что файл существует, не является директорией и не пуст
-    public static void validateFile(String[] parameters, ValidationResult validationResult) {
+    private static void validateFile(String[] parameters, ValidationResult validationResult) {
         try {
             if (Files.size(Path.of(parameters[0])) == 0) {
                 validationResult.status = Status.FAIL;
@@ -36,7 +36,7 @@ public class Validator {
     }
 
     // проверяем и возвращаем значение ключа
-    public static int validateKey(String[] parameters, ValidationResult validationResult) {
+    private static int validateKey(String[] parameters, ValidationResult validationResult) {
         int key = 0;
         try {
             key = Integer.parseInt(parameters[2]);

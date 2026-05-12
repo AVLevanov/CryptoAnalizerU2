@@ -13,8 +13,6 @@ public class Logger {
 
     // Создаем единственный поток при инициализации
     static BufferedWriter bufferedWriter;
-    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Environment.LOD_DATE_TEME_FORMAT);
-
     static {
         try {
             bufferedWriter = Files.newBufferedWriter(Path.of(Environment.LOG_PATH), StandardOpenOption.APPEND);
@@ -22,6 +20,7 @@ public class Logger {
             throw new RuntimeException(e);
         }
     }
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Environment.LOD_DATE_TEME_FORMAT);
 
     // Добавляем строку
     public void logEvent(com.javarush.levanov.ver_2.controller.result.Result result) {
