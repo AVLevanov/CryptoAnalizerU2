@@ -9,14 +9,15 @@ import java.util.Scanner;
 
 public class ConsoleApp {
 
-    //Запускаем консоль и получаем данные от пользователя
-    public void Start(ControllerApp controller) {
+    // Запускаем консоль и получаем данные от пользователя
+    public void start(ControllerApp controller) {
         // инициализируем все необходимые переменные
         Scanner scanner = new Scanner(System.in);
         String[] parameters = new String[3];
         int mode;
         Action action = null;
         controller.processRequest(Action.START, parameters);
+
         // запускаем цикл общения с пользователем
         while (true) {
             System.out.println(Messages.INITIAL_MESSAGE);
@@ -44,11 +45,12 @@ public class ConsoleApp {
         }
     }
 
+    // Выводим результат
     public void showResult(Result result) {
         if (result.message != null) {
-            if(result.status== Status.SUCCESS){
+            if (result.status == Status.SUCCESS) {
                 System.out.printf(Messages.SUCCESS_RESULT, result.action, result.status, result.message);
-            }else {
+            } else {
                 System.out.printf(Messages.FAILED_RESULT, result.action, result.status, result.message);
             }
         }

@@ -10,7 +10,7 @@ import java.nio.file.Path;
 
 // Проверяет данные введенные пользователем
 public class Validator {
-    // Валидируем параметры запроса. Возвращаем результат валидации: статус и (ошибки или сконструированный запрос)
+    // Валидируем параметры запроса и возвращаем результат валидации
     public ValidationResult validateParameters(Action action, String[] parameters) {
         ValidationResult validationResult = new ValidationResult();
         validationResult.action = action;
@@ -22,7 +22,7 @@ public class Validator {
         return validationResult;
     }
 
-    // проверяем, что файл существует, не является директорией и не пуст
+    // Проверяем, что файл существует, не является директорией и не пуст
     private static void validateFile(String[] parameters, ValidationResult validationResult) {
         try {
             if (Files.size(Path.of(parameters[0])) == 0) {
@@ -35,7 +35,7 @@ public class Validator {
         }
     }
 
-    // проверяем и возвращаем значение ключа
+    // Проверяем и возвращаем значение ключа
     private static int validateKey(String[] parameters, ValidationResult validationResult) {
         int key = 0;
         try {

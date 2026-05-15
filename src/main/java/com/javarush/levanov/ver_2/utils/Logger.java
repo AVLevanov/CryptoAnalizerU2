@@ -1,5 +1,7 @@
 package com.javarush.levanov.ver_2.utils;
 
+import com.javarush.levanov.ver_2.constant.Constants;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 public class Logger {
 
     // Создаем единственный поток при инициализации
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.LOD_DATE_TIME_FORMAT);
     static BufferedWriter bufferedWriter;
     static {
         try {
@@ -20,7 +23,6 @@ public class Logger {
             throw new RuntimeException(e);
         }
     }
-    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Environment.LOD_DATE_TEME_FORMAT);
 
     // Добавляем строку
     public void logEvent(com.javarush.levanov.ver_2.controller.result.Result result) {

@@ -14,7 +14,7 @@ public abstract class AbstractAction {
              BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of(outPath))
         ) {
             while (bufferedReader.ready()) {
-                char symbol = (char) bufferedReader.read();
+                char symbol = Character.toLowerCase((char) bufferedReader.read());
                 char encryptedSymbol;
                 if (Coder.getCipher().get(symbol) != null) {
                     encryptedSymbol = Coder.getCipher().get(symbol);

@@ -6,7 +6,6 @@ import com.javarush.levanov.ver_2.actions.Encrypt;
 import com.javarush.levanov.ver_2.console.ConsoleApp;
 import com.javarush.levanov.ver_2.controller.result.*;
 import com.javarush.levanov.ver_2.utils.Logger;
-import com.javarush.levanov.ver_2.controller.result.Result;
 import com.javarush.levanov.ver_2.utils.validator.Validator;
 
 public class ControllerApp {
@@ -15,11 +14,11 @@ public class ControllerApp {
     private Validator validator;
 
     // Создаем console, logger и validator
-    public void Start() {
+    public void start() {
         console = new ConsoleApp();
         logger = new Logger();
         validator = new Validator();
-        console.Start(this);
+        console.start(this);
     }
 
     // обработка поступившего запроса
@@ -50,7 +49,7 @@ public class ControllerApp {
         }
     }
 
-    //отправляем запрос на исполнение
+    //отправляем запрос на исполнение, возвращаем результат
     private Result executeRequest(Request request) {
         Result result = new Result();
         switch (request.action) {

@@ -8,6 +8,7 @@ import static com.javarush.levanov.ver_2.constant.Constants.ALPHABET;
 public class Coder {
     private static final Map<Character, Character> cipher = new HashMap<>();
 
+    // Настраиваем шифратор
     public static void setKey(int key) {
         key = key % ALPHABET.length; //нормируем сдвиг на длину алфавита, чтобы можно было вводить любые значения
         for (int i = 0; i < ALPHABET.length; i++) {
