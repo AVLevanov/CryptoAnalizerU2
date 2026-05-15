@@ -5,7 +5,7 @@ target/
 !**/src/test/**/out/
 *.iml
 .idea/
-
+/src/main/java/com/javarush/levanov/ver_1/*
 
 ### Mac OS ###
 .DS_Store

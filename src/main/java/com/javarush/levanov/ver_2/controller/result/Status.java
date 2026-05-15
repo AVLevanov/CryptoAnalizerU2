@@ -1,4 +1,4 @@
-package com.javarush.levanov.ver2.controller.result;
+package com.javarush.levanov.ver_2.controller.result;
 
 public enum Status {
     SUCCESS, FAIL

@@ -1,4 +1,4 @@
-package com.javarush.levanov.ver2.utils.validator;
+package com.javarush.levanov.ver_2.utils.validator;
 
 public interface ValidationErrorMessages {
 //    String INCORRECT_MODE = "No action selected. Please enter a number between 1 and 3";
