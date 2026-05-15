@@ -1,4 +1,4 @@
-package com.javarush.levanov.ver_2.actions;
+package com.javarush.levanov.ver2.actions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.javarush.levanov.ver_2.constant.Constants.*;
-import static com.javarush.levanov.ver_2.utils.Environment.*;
+import static com.javarush.levanov.ver2.constant.Constants.*;
+import static com.javarush.levanov.ver2.utils.Environment.*;
 
 public class BruteForce extends AbstractAction {
 

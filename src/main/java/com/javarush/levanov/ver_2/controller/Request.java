@@ -1,4 +1,4 @@
-package com.javarush.levanov.ver_2.controller;
+package com.javarush.levanov.ver2.controller;
 
 public class Request {
     public Action action;

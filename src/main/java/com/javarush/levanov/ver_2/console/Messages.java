@@ -1,4 +1,4 @@
-package com.javarush.levanov.ver_2.console;
+package com.javarush.levanov.ver2.console;
 
 public interface Messages {
 
