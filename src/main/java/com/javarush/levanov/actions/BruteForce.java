@@ -13,15 +13,19 @@ import java.util.Map;
 import static com.javarush.levanov.constant.Constants.*;
 
 public class BruteForce extends AbstractAction {
+    public BruteForce(ExecuteRequest executeRequest) {
+        this.executeRequest = executeRequest;
+        execute(executeRequest);
+    }
 
     // возвращаем расшифрованный текст по значению найденного ключа
-    public static void execute(ExecuteRequest executeRequest) {
+    public void execute(ExecuteRequest executeRequest) {
         int bestKey = findKey(executeRequest.inPath, executeRequest.outPath);
         codeWithKey(executeRequest.inPath, executeRequest.outPath, bestKey);
     }
 
     // перебиреаем все ключи, и возвращаем тот, при котором больше всего повторений ключевых слов
-    private static int findKey(Path inPath, Path outPath) {
+    private int findKey(Path inPath, Path outPath) {
         Map<Integer, Integer> keysAndCounters = new HashMap<>();
         for (int key = 1; key <= ALPHABET.length; key++) {
             codeWithKey(inPath, outPath, -key);
@@ -43,7 +47,7 @@ public class BruteForce extends AbstractAction {
     }
 
     // возвращает число повторений всех ключевых слов в тексте
-    private static int keyWordsCounter(Path inPath) {
+    private int keyWordsCounter(Path inPath) {
         int keyWordCounter = 0;
         for (String keyWord : KEY_WORDS) {
             keyWordCounter += wordCounter(inPath, keyWord);
@@ -52,7 +56,7 @@ public class BruteForce extends AbstractAction {
     }
 
     // Построчно читая файл перебираем варианты обрамления слова пробелами и знаками препинания. Возвращаем число повторений слова в тексте
-    private static int wordCounter(Path inPath, String word) {
+    private int wordCounter(Path inPath, String word) {
         int wordCounter = 0;
         try (BufferedReader bufferedReader = Files.newBufferedReader(inPath)) {
             String nextLine;

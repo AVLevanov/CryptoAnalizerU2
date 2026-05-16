@@ -15,10 +15,10 @@ public class Validator {
         validationResult.inPath = validateFilePath(validationRequest.inStringPath, validationResult);
         validationResult.outPath = Path.of(validationRequest.outStringPath);
         switch (validationRequest.action) {
-            case ENCRYPT, DECRYPT -> validationResult.key = validateKey(validationRequest.stringKey, validationResult);
+            case ENCRYPT, DECRYPT -> validateKey(validationRequest.stringKey, validationResult);
             case ANALYZE -> {
                 validationResult.dictionaryPath = validateFilePath(validationRequest.dictionaryStringPath, validationResult);
-                validationResult.precision = validatePrecision(validationRequest.stringPrecision, validationResult);
+                validatePrecision(validationRequest.stringPrecision, validationResult);
             }
         }
         return validationResult;
@@ -38,18 +38,18 @@ public class Validator {
         return path;
     }
 
-    private int validateKey(String key, ValidationResult validationResult) {
-        int validatedKey = 0;
+    private void validateKey(String key, ValidationResult validationResult) {
+        int validatedKey;
         try {
             validatedKey = Integer.parseInt(key);
+            validationResult.key = validatedKey;
         } catch (NumberFormatException e) {
             validationResult.status = Status.FAIL;
             validationResult.message = Constants.INCORRECT_KEY;
         }
-        return validatedKey;
     }
 
-    private double validatePrecision(String precision, ValidationResult validationResult) {
+    private void validatePrecision(String precision, ValidationResult validationResult) {
         double validatedPrecision = 0;
         try {
             validatedPrecision = Double.parseDouble(precision);
@@ -60,9 +60,8 @@ public class Validator {
         if (validatedPrecision < 0.005 || validatedPrecision > 0.1) {
             validationResult.status = Status.FAIL;
             validationResult.message = Constants.INCORRECT_PRECISION;
+        } else {
+            validationResult.precision = validatedPrecision;
         }
-        return validatedPrecision;
     }
-
-
 }

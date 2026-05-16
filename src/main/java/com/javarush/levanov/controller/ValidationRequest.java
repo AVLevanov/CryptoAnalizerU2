@@ -6,11 +6,6 @@ public class ValidationRequest extends Request {
     public String dictionaryStringPath;
     public String stringKey;
     public String stringPrecision;
-//    public int validatedKey;
-//    public double validatedPrecision;
-//    public Path encryptedPath;
-//    public Path decyptedPath;
-//    public Path dictionaryPath;
 
     public ValidationRequest() {
         this.action = Action.START;
@@ -19,7 +14,5 @@ public class ValidationRequest extends Request {
         this.dictionaryStringPath = "";
         this.stringKey = "";
         this.stringPrecision = "";
-//        this.validatedKey = 0;
-//        this.validatedPrecision = 0;
     }
 }

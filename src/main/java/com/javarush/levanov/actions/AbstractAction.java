@@ -1,6 +1,7 @@
 package com.javarush.levanov.actions;
 
 import com.javarush.levanov.constant.Coder;
+import com.javarush.levanov.controller.ExecuteRequest;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public abstract class AbstractAction {
+    public ExecuteRequest executeRequest;
 
     public static void codeWithKey(Path inPath, Path outPath, int key) {
         Coder.setKey(key);

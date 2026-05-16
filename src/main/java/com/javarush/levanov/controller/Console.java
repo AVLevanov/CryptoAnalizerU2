@@ -7,14 +7,18 @@ import com.javarush.levanov.result.Status;
 import java.util.Scanner;
 
 public class Console {
-    public Console(Controller controller) {
-        Scanner scanner = new Scanner(System.in);
-        ValidationRequest validationRequest = new ValidationRequest();
-        this.start(controller, scanner, validationRequest);
+    private final Controller controller;
+    private final Scanner scanner;
+    private ValidationRequest validationRequest;
+
+    public Console(Controller controller, Scanner scanner, ValidationRequest validationRequest) {
+        this.controller = controller;
+        this.scanner = scanner;
+        this.validationRequest = validationRequest;
     }
 
-    private void start(Controller controller, Scanner scanner, ValidationRequest validationRequest) {
-        controller.processRequest(validationRequest, this);
+    public void start() {
+        controller.processRequest(validationRequest);
         String[] parameters = new String[Constants.MAX_QUESTION_NUMBERS - 1];
         int mode;
         while (true) {
@@ -23,12 +27,12 @@ public class Console {
                 mode = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
                 validationRequest.action = Action.EXIT;
-                controller.processRequest(validationRequest, this);
+                controller.processRequest(validationRequest);
                 break;
             }
             if (mode < 1 || mode > 4) {
                 validationRequest.action = Action.EXIT;
-                controller.processRequest(validationRequest, this);
+                controller.processRequest(validationRequest);
                 break;
             } else {
                 for (int i = 0; i < Constants.QUESTIONS[mode - 1].length; i++) {
@@ -62,7 +66,7 @@ public class Console {
                     }
                 }
             }
-            controller.processRequest(validationRequest, this);
+            controller.processRequest(validationRequest);
         }
     }
 
