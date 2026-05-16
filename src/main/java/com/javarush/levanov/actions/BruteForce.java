@@ -16,16 +16,16 @@ public class BruteForce extends AbstractAction {
 
     // возвращаем расшифрованный текст по значению найденного ключа
     public static void execute(ExecuteRequest executeRequest) {
-        int bestKey = findKey(executeRequest.inPath);
+        int bestKey = findKey(executeRequest.inPath, executeRequest.outPath);
         codeWithKey(executeRequest.inPath, executeRequest.outPath, bestKey);
     }
 
     // перебиреаем все ключи, и возвращаем тот, при котором больше всего повторений ключевых слов
-    private static int findKey(Path inPath) {
+    private static int findKey(Path inPath, Path outPath) {
         Map<Integer, Integer> keysAndCounters = new HashMap<>();
         for (int key = 1; key <= ALPHABET.length; key++) {
-            codeWithKey(inPath, BRUTE_FORCE_WORKING_PATH, -key);
-            int counter = keyWordsCounter(BRUTE_FORCE_WORKING_PATH);
+            codeWithKey(inPath, outPath, -key);
+            int counter = keyWordsCounter(outPath);
             keysAndCounters.put(-key, counter);
         }
 

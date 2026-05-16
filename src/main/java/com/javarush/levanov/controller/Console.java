@@ -14,21 +14,21 @@ public class Console {
     }
 
     private void start(Controller controller, Scanner scanner, ValidationRequest validationRequest) {
-        controller.processRequest(validationRequest);
+        controller.processRequest(validationRequest, this);
         String[] parameters = new String[Constants.MAX_QUESTION_NUMBERS - 1];
-        int mode = 0;
+        int mode;
         while (true) {
             System.out.println(Constants.INITIAL_MESSAGE);
             try {
                 mode = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
                 validationRequest.action = Action.EXIT;
-                controller.processRequest(validationRequest);
+                controller.processRequest(validationRequest, this);
                 break;
             }
             if (mode < 1 || mode > 4) {
                 validationRequest.action = Action.EXIT;
-                controller.processRequest(validationRequest);
+                controller.processRequest(validationRequest, this);
                 break;
             } else {
                 for (int i = 0; i < Constants.QUESTIONS[mode - 1].length; i++) {
@@ -62,7 +62,7 @@ public class Console {
                     }
                 }
             }
-            controller.processRequest(validationRequest);
+            controller.processRequest(validationRequest, this);
         }
     }
 

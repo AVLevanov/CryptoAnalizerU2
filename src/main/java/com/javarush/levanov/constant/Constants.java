@@ -56,6 +56,5 @@ public interface Constants {
     String EMPTY_FILE = "File is empty";
 
     // Environment
-    Path BRUTE_FORCE_WORKING_PATH = Path.of("/Users/alevanov/!_Не работа/bruteForceWorkingFile.txt");
     String LOG_PATH = "/Users/alevanov/!_Не работа/log.txt";
 }

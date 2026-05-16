@@ -19,15 +19,15 @@ public class Controller {
 
     // Создаем console, logger и validator
     public void start() {
-        console = new Console(this);
         logger = new Logger();
         validator = new Validator();
+        console = new Console(this);
     }
 
     // обработка поступившего запроса
-    public void processRequest(ValidationRequest validationRequest) {
+    public void processRequest(ValidationRequest validationRequest, Console console) {
         Result result = new Result();
-        ExecuteRequest executeRequest = null;
+        ExecuteRequest executeRequest;
         switch (validationRequest.action) {
             case Action.START, Action.EXIT -> {
                 result.action = validationRequest.action;

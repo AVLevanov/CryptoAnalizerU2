@@ -91,14 +91,13 @@ public class Analyze extends AbstractAction {
     }
 
     private double getDistance(double[][] etalon, double[][] candidate) {
-        double distance = 0;
         double sum = 0;
         for (int i = 0; i < etalon.length; i++) {
             for (int j = 0; j < etalon[i].length; j++) {
                 sum += Math.pow(etalon[i][j] - candidate[i][j], 2);
             }
         }
-        distance = Math.pow(sum, 0.5);
+        double distance = Math.pow(sum, 0.5);
         return distance;
     }
 

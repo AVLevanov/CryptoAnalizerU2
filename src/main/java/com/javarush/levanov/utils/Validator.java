@@ -15,9 +15,7 @@ public class Validator {
         validationResult.inPath = validateFilePath(validationRequest.inStringPath, validationResult);
         validationResult.outPath = Path.of(validationRequest.outStringPath);
         switch (validationRequest.action) {
-            case ENCRYPT, DECRYPT -> {
-                validationResult.key = validateKey(validationRequest.stringKey, validationResult);
-            }
+            case ENCRYPT, DECRYPT -> validationResult.key = validateKey(validationRequest.stringKey, validationResult);
             case ANALYZE -> {
                 validationResult.dictionaryPath = validateFilePath(validationRequest.dictionaryStringPath, validationResult);
                 validationResult.precision = validatePrecision(validationRequest.stringPrecision, validationResult);
