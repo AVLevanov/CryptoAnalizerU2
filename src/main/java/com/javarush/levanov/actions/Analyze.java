@@ -97,8 +97,7 @@ public class Analyze extends AbstractAction {
                 sum += Math.pow(etalon[i][j] - candidate[i][j], 2);
             }
         }
-        double distance = Math.pow(sum, 0.5);
-        return distance;
+        return Math.pow(sum, 0.5);
     }
 
     private void changeMatrixAndAlphabet(double[][] changedMatrix, List<Character> changedAlphabet) {
