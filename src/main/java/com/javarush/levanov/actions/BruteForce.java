@@ -1,4 +1,6 @@
-package com.javarush.levanov.ver_2.actions;
+package com.javarush.levanov.actions;
+
+import com.javarush.levanov.controller.ExecuteRequest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,22 +10,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.javarush.levanov.ver_2.constant.Constants.*;
-import static com.javarush.levanov.ver_2.utils.Environment.*;
+import static com.javarush.levanov.constant.Constants.*;
 
 public class BruteForce extends AbstractAction {
 
     // возвращаем расшифрованный текст по значению найденного ключа
-    public static void execute(String inPath, String outPath) {
-        int bestKey = findKey(inPath);
-        code(inPath, outPath, bestKey);
+    public static void execute(ExecuteRequest executeRequest) {
+        int bestKey = findKey(executeRequest.inPath);
+        codeWithKey(executeRequest.inPath, executeRequest.outPath, bestKey);
     }
 
     // перебиреаем все ключи, и возвращаем тот, при котором больше всего повторений ключевых слов
-    private static int findKey(String inPath) {
+    private static int findKey(Path inPath) {
         Map<Integer, Integer> keysAndCounters = new HashMap<>();
         for (int key = 1; key <= ALPHABET.length; key++) {
-            code(inPath, BRUTE_FORCE_WORKING_PATH, -key);
+            codeWithKey(inPath, BRUTE_FORCE_WORKING_PATH, -key);
             int counter = keyWordsCounter(BRUTE_FORCE_WORKING_PATH);
             keysAndCounters.put(-key, counter);
         }
@@ -42,7 +43,7 @@ public class BruteForce extends AbstractAction {
     }
 
     // возвращает число повторений всех ключевых слов в тексте
-    private static int keyWordsCounter(String inPath) {
+    private static int keyWordsCounter(Path inPath) {
         int keyWordCounter = 0;
         for (String keyWord : KEY_WORDS) {
             keyWordCounter += wordCounter(inPath, keyWord);
@@ -51,9 +52,9 @@ public class BruteForce extends AbstractAction {
     }
 
     // Построчно читая файл перебираем варианты обрамления слова пробелами и знаками препинания. Возвращаем число повторений слова в тексте
-    private static int wordCounter(String inPath, String word) {
+    private static int wordCounter(Path inPath, String word) {
         int wordCounter = 0;
-        try (BufferedReader bufferedReader = Files.newBufferedReader(Path.of(inPath))) {
+        try (BufferedReader bufferedReader = Files.newBufferedReader(inPath)) {
             String nextLine;
             String wordCase;
             String nextLineToLowerCase;
