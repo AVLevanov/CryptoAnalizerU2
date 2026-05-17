@@ -1,14 +1,14 @@
 package com.javarush.levanov.actions;
 
-import com.javarush.levanov.controller.ExecuteRequest;
+import com.javarush.levanov.controller.request.ExecuteRequest;
 
 public class Encrypt extends AbstractAction {
     public Encrypt(ExecuteRequest executeRequest) {
-        this.executeRequest = executeRequest;
         execute(executeRequest);
     }
 
     private void execute(ExecuteRequest executeRequest) {
-        codeWithKey(executeRequest.inPath, executeRequest.outPath, executeRequest.key);
+        executeRequest.coder.setCeaserCipher(executeRequest.coder, executeRequest.key);
+        code(executeRequest.coder, executeRequest.inPath, executeRequest.outPath);
     }
 }

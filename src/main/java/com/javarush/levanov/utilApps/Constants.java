@@ -1,4 +1,4 @@
-package com.javarush.levanov.constant;
+package com.javarush.levanov.utilApps;
 
 public interface Constants {
     Character[] ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з',
@@ -45,14 +45,13 @@ public interface Constants {
 
     // Analyze
     String BEST_ALPHABET_WAS_FOUND = "\tFound best cipher with percision=%f, attempts count %d \n";
-    int MATRIX_REVERT_COUNT_BY_ANALYZE = 7;
+    int INITIAL_PHASE_MATRIX_REVERT_COUNT = 10;
+    int FINISH_PHASE_MATRIX_REVERT_COUNT = 1;
+    double INITIAL_PHASE_LIMIT_PRECISION = 0.025;
 
     // Validator error messages
     String INCORRECT_KEY = "Invalid encryption key. Please enter an integer between 0 and " + Integer.MAX_VALUE;
     String INCORRECT_PRECISION = "Invalid precision. Precision must be 0.005 < precision < 0.1";
     String FILE_MUST_EXIST = "Invalid file. File must exist";
     String EMPTY_FILE = "File is empty";
-
-    // Environment
-    String LOG_PATH = "/Users/alevanov/!_Не работа/log.txt";
 }

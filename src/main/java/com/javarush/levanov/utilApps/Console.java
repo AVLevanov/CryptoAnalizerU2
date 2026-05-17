@@ -1,8 +1,10 @@
-package com.javarush.levanov.controller;
+package com.javarush.levanov.utilApps;
 
-import com.javarush.levanov.constant.Constants;
-import com.javarush.levanov.result.Result;
-import com.javarush.levanov.result.Status;
+import com.javarush.levanov.controller.Action;
+import com.javarush.levanov.controller.Controller;
+import com.javarush.levanov.controller.request.ValidationRequest;
+import com.javarush.levanov.controller.result.Result;
+import com.javarush.levanov.controller.result.Status;
 
 import java.util.Scanner;
 
@@ -70,8 +72,7 @@ public class Console {
         }
     }
 
-    // Выводим результат
-    public void showResult(Result result) {
+    public void showAnswer(Result result) {
         if (result.message != null) {
             if (result.status == Status.SUCCESS) {
                 System.out.printf(Constants.SUCCESS_RESULT, result.action, result.status, result.message);

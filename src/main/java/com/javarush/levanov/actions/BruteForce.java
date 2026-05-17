@@ -1,6 +1,7 @@
 package com.javarush.levanov.actions;
 
-import com.javarush.levanov.controller.ExecuteRequest;
+import com.javarush.levanov.utilApps.Coder;
+import com.javarush.levanov.controller.request.ExecuteRequest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,25 +11,26 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.javarush.levanov.constant.Constants.*;
+import static com.javarush.levanov.utilApps.Constants.*;
 
 public class BruteForce extends AbstractAction {
     public BruteForce(ExecuteRequest executeRequest) {
-        this.executeRequest = executeRequest;
         execute(executeRequest);
     }
 
-    // возвращаем расшифрованный текст по значению найденного ключа
+    // return decrypted text using best found key
     public void execute(ExecuteRequest executeRequest) {
-        int bestKey = findKey(executeRequest.inPath, executeRequest.outPath);
-        codeWithKey(executeRequest.inPath, executeRequest.outPath, bestKey);
+        int bestKey = findBestKey(executeRequest.coder, executeRequest.inPath, executeRequest.outPath);
+        executeRequest.coder.setCeaserCipher(executeRequest.coder, bestKey);
+        code(executeRequest.coder, executeRequest.inPath, executeRequest.outPath);
     }
 
-    // перебиреаем все ключи, и возвращаем тот, при котором больше всего повторений ключевых слов
-    private int findKey(Path inPath, Path outPath) {
+    // iterate all keys and return the one with the most repetitions of keywords
+    private int findBestKey(Coder coder, Path inPath, Path outPath) {
         Map<Integer, Integer> keysAndCounters = new HashMap<>();
         for (int key = 1; key <= ALPHABET.length; key++) {
-            codeWithKey(inPath, outPath, -key);
+            coder.setCeaserCipher(coder, -key);
+            code(coder, inPath, outPath);
             int counter = keyWordsCounter(outPath);
             keysAndCounters.put(-key, counter);
         }
@@ -46,7 +48,7 @@ public class BruteForce extends AbstractAction {
         return bestKey;
     }
 
-    // возвращает число повторений всех ключевых слов в тексте
+    // return repetitions of keywords of language
     private int keyWordsCounter(Path inPath) {
         int keyWordCounter = 0;
         for (String keyWord : KEY_WORDS) {
@@ -55,7 +57,7 @@ public class BruteForce extends AbstractAction {
         return keyWordCounter;
     }
 
-    // Построчно читая файл перебираем варианты обрамления слова пробелами и знаками препинания. Возвращаем число повторений слова в тексте
+    // return number of word repetitions in the text, considering the characters before and after the word
     private int wordCounter(Path inPath, String word) {
         int wordCounter = 0;
         try (BufferedReader bufferedReader = Files.newBufferedReader(inPath)) {
@@ -64,12 +66,12 @@ public class BruteForce extends AbstractAction {
             String nextLineToLowerCase;
             while ((nextLine = bufferedReader.readLine()) != null) {
                 nextLineToLowerCase = nextLine.toLowerCase();
-                for (String nextCharacter : NEXT_CHARACTERS) { // считаем появление слова в начале строки
+                for (String nextCharacter : NEXT_CHARACTERS) { // count the word in the beginning of the line
                     wordCase = word + nextCharacter;
                     if (nextLineToLowerCase.indexOf(wordCase, 0, Math.min(wordCase.length(), nextLineToLowerCase.length())) != -1) {
                         wordCounter++;
                     }
-                    for (String precedingCharacter : PRECEDING_CHARACTERS) {  // считаем появление слова в середине строки
+                    for (String precedingCharacter : PRECEDING_CHARACTERS) {  // count the word in the middle of the line
                         int pointer = 0;
                         wordCase = precedingCharacter + word + nextCharacter;
                         while (nextLineToLowerCase.indexOf(wordCase, pointer) != -1) {

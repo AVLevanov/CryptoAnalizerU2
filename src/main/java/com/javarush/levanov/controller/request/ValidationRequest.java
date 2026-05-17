@@ -1,4 +1,6 @@
-package com.javarush.levanov.controller;
+package com.javarush.levanov.controller.request;
+
+import com.javarush.levanov.controller.Action;
 
 public class ValidationRequest extends Request {
     public String inStringPath;

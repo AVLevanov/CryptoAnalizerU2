@@ -1,4 +1,4 @@
-package com.javarush.levanov.result;
+package com.javarush.levanov.controller.result;
 
 import com.javarush.levanov.controller.Action;
 

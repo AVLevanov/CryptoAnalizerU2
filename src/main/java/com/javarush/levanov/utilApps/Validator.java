@@ -1,9 +1,8 @@
-package com.javarush.levanov.utils;
+package com.javarush.levanov.utilApps;
 
-import com.javarush.levanov.constant.Constants;
-import com.javarush.levanov.controller.ValidationRequest;
-import com.javarush.levanov.result.Status;
-import com.javarush.levanov.result.ValidationResult;
+import com.javarush.levanov.controller.request.ValidationRequest;
+import com.javarush.levanov.controller.result.Status;
+import com.javarush.levanov.controller.result.ValidationResult;
 
 import java.io.IOException;
 import java.nio.file.Files;

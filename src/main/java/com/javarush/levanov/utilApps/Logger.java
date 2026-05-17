@@ -1,6 +1,6 @@
-package com.javarush.levanov.utils;
+package com.javarush.levanov.utilApps;
 
-import com.javarush.levanov.constant.Constants;
+import com.javarush.levanov.controller.result.Result;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,23 +10,24 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-// Логируем результат событий
 public class Logger {
+    private final DateTimeFormatter formatter;
+    private final BufferedWriter bufferedWriter;
 
-    // Создаем единственный поток при инициализации
-    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.LOD_DATE_TIME_FORMAT);
-    static BufferedWriter bufferedWriter;
-
-    static {
+    public Logger() {
+        formatter = DateTimeFormatter.ofPattern(Constants.LOD_DATE_TIME_FORMAT);
+        Path logPath = Path.of(System.getProperty("user.dir"), "log.txt");
         try {
-            bufferedWriter = Files.newBufferedWriter(Path.of(Constants.LOG_PATH), StandardOpenOption.APPEND);
+            if (!Files.exists(logPath)) {
+                Files.createFile(logPath);
+            }
+            bufferedWriter = Files.newBufferedWriter(logPath, StandardOpenOption.APPEND);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    // Добавляем строку
-    public void logEvent(com.javarush.levanov.result.Result result) {
+    public void logEvent(Result result) {
         try {
             bufferedWriter.append(constructLogLine(result));
             bufferedWriter.flush();
@@ -35,8 +36,7 @@ public class Logger {
         }
     }
 
-    // Строим строку для журнала
-    private String constructLogLine(com.javarush.levanov.result.Result result) {
+    private String constructLogLine(Result result) {
         String logLine;
         LocalDateTime localDateTime = LocalDateTime.now();
         String formattedDateTime = formatter.format(localDateTime);

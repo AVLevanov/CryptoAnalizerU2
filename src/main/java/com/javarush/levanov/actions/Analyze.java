@@ -1,8 +1,7 @@
 package com.javarush.levanov.actions;
 
-import com.javarush.levanov.constant.Coder;
-import com.javarush.levanov.constant.Constants;
-import com.javarush.levanov.controller.ExecuteRequest;
+import com.javarush.levanov.utilApps.Constants;
+import com.javarush.levanov.controller.request.ExecuteRequest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,37 +11,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.javarush.levanov.constant.Constants.MATRIX_REVERT_COUNT_BY_ANALYZE;
+import static com.javarush.levanov.utilApps.Constants.*;
 
 public class Analyze extends AbstractAction {
-    private final double precision;
     private final List<Character> alphabet;
-    private final Path dictionaryPath;
-    private final Path decryptedPath;
-    private final Path encryptedPath;
+    private boolean isFinishPhase = false;
 
     public Analyze(Character[] alphabet, ExecuteRequest executeRequest) {
         this.alphabet = new ArrayList<>(Arrays.asList(alphabet));
-        this.encryptedPath = executeRequest.inPath;
-        this.decryptedPath = executeRequest.outPath;
-        this.dictionaryPath = executeRequest.dictionaryPath;
-        this.precision = executeRequest.precision;
-        execute();
+        execute(executeRequest);
     }
 
-    private void execute() {
+    private void execute(ExecuteRequest executeRequest) {
         List<Character> bestAlphabet = new ArrayList<>(alphabet);
         List<Character> changedAlphabet = new ArrayList<>(alphabet);
-        double[][] dictionaryMatrix = getMatrix(dictionaryPath);
-        double[][] encryptedMatrix = getMatrix(encryptedPath);
+        double[][] dictionaryMatrix = getMatrix(executeRequest.dictionaryPath);
+        double[][] encryptedMatrix = getMatrix(executeRequest.inPath);
         double[][] bestMatrix = makeMatrixCopy(encryptedMatrix);
         double[][] changedMatrix = makeMatrixCopy(encryptedMatrix);
         double bestDistance = getDistance(dictionaryMatrix, encryptedMatrix);
         double changedDistance;
         int attemptsCounter = 0;
-        while (bestDistance > precision) {
+        while (bestDistance > executeRequest.precision) {
             attemptsCounter++;
-            changeMatrixAndAlphabet(changedMatrix, changedAlphabet);
+            changeMatrixAndAlphabet(changedMatrix, changedAlphabet, isFinishPhase);
             changedDistance = getDistance(dictionaryMatrix, changedMatrix);
             if (changedDistance < bestDistance) {
                 bestDistance = changedDistance;
@@ -51,15 +43,19 @@ public class Analyze extends AbstractAction {
                 System.out.printf(Constants.BEST_ALPHABET_WAS_FOUND, bestDistance, attemptsCounter);
                 System.out.println(alphabet);
                 System.out.println(bestAlphabet);
+                if (bestDistance < INITIAL_PHASE_LIMIT_PRECISION || !isFinishPhase) {
+                    isFinishPhase = true;
+                }
             } else {
                 copyMatrixValues(changedMatrix, bestMatrix);
                 copyAlphabetValues(changedAlphabet, bestAlphabet);
             }
         }
-        Coder.setCoder(bestAlphabet);
-        code(encryptedPath, decryptedPath);
+        executeRequest.coder.setCipher(bestAlphabet);
+        code(executeRequest.coder, executeRequest.inPath, executeRequest.outPath);
     }
 
+    // build bigram text matrix
     private double[][] getMatrix(Path path) {
         int charsCounter = 0;
         double[][] matrix = new double[alphabet.size()][alphabet.size()];
@@ -100,10 +96,15 @@ public class Analyze extends AbstractAction {
         return Math.pow(sum, 0.5);
     }
 
-    private void changeMatrixAndAlphabet(double[][] changedMatrix, List<Character> changedAlphabet) {
+    // revert lines/columns
+    private void changeMatrixAndAlphabet(double[][] changedMatrix, List<Character> changedAlphabet, boolean isFinishPhase) {
         double[] arrayBuffer = new double[changedAlphabet.size()];
         char charBuffer;
-        for (int j = 0; j < MATRIX_REVERT_COUNT_BY_ANALYZE; j++) {
+        int revertCount = INITIAL_PHASE_MATRIX_REVERT_COUNT;
+        if (isFinishPhase) {
+            revertCount = FINISH_PHASE_MATRIX_REVERT_COUNT;
+        }
+        for (int j = 0; j < revertCount; j++) {
             int k = (int) (Math.random() * changedAlphabet.size());
             int m = (int) (Math.random() * changedAlphabet.size());
             if (k != m) {

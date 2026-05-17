@@ -4,53 +4,60 @@ import com.javarush.levanov.actions.Analyze;
 import com.javarush.levanov.actions.BruteForce;
 import com.javarush.levanov.actions.Decrypt;
 import com.javarush.levanov.actions.Encrypt;
-import com.javarush.levanov.result.Result;
-import com.javarush.levanov.result.Status;
-import com.javarush.levanov.result.ValidationResult;
-import com.javarush.levanov.utils.Logger;
-import com.javarush.levanov.utils.Validator;
+import com.javarush.levanov.controller.request.ExecuteRequest;
+import com.javarush.levanov.controller.request.ValidationRequest;
+import com.javarush.levanov.utilApps.Coder;
+import com.javarush.levanov.controller.result.Result;
+import com.javarush.levanov.controller.result.Status;
+import com.javarush.levanov.controller.result.ValidationResult;
+import com.javarush.levanov.utilApps.Console;
+import com.javarush.levanov.utilApps.Logger;
+import com.javarush.levanov.utilApps.Validator;
 
 import java.util.Scanner;
 
-import static com.javarush.levanov.constant.Constants.*;
+import static com.javarush.levanov.utilApps.Constants.*;
 
 public class Controller {
     private final Console console;
     private final Logger logger;
     private final Validator validator;
+    private final Coder coder;
 
-    // Создаем console, logger и validator
+    // Start point with creation console, logger, validator and coder
     public Controller() {
         Scanner scanner = new Scanner(System.in);
         ValidationRequest validationRequest = new ValidationRequest();
         console = new Console(this, scanner, validationRequest);
         validator = new Validator();
         logger = new Logger();
+        coder = new Coder();
         console.start();
     }
 
-    // обработка поступившего запроса
+    // processing (validating) incoming requests from console
     public void processRequest(ValidationRequest validationRequest) {
         Result result;
         ExecuteRequest executeRequest;
         ValidationResult validationResult = validator.validateRequest(validationRequest);
         if (validationResult.status == Status.FAIL) {
-            console.showResult(validationResult);
+            console.showAnswer(validationResult);
             logger.logEvent(validationResult);
         } else {
-            executeRequest = new ExecuteRequest(validationResult.action,
+            executeRequest = new ExecuteRequest(coder,
+                    validationResult.action,
                     validationResult.key,
                     validationResult.precision,
                     validationResult.inPath,
                     validationResult.outPath,
                     validationResult.dictionaryPath);
             result = executeRequest(executeRequest);
-            console.showResult(result);
+            console.showAnswer(result);
             logger.logEvent(result);
         }
     }
 
-    //отправляем запрос на исполнение, возвращаем результат
+    // execution valid requests
     public Result executeRequest(ExecuteRequest executeRequest) {
         Result result = new Result();
         result.action = executeRequest.action;
